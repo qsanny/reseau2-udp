@@ -8,7 +8,9 @@ public class client
         int serveurPort = 3333;
         InetAddress serverAddress = InetAddress.getLocalHost();
         String file = "test.txt";
-        int size = 135000;
+        int MAX_SIZE = 135000;
+
+        int size = 0;
 
         if (args.length == 1){
             size = Integer.parseInt(args[0]);
@@ -20,7 +22,7 @@ public class client
             file = args[2];
         }
 
-        byte b[]=new byte[size];
+        byte b[]=new byte[MAX_SIZE];
         FileInputStream fop=new FileInputStream(file);
         DatagramSocket dsoc=new DatagramSocket(3331);
         int i=0;
@@ -28,6 +30,7 @@ public class client
         {
             b[i]=(byte)fop.read();
             i++;
+            if (i == size) break;
         }                     
         fop.close();
         dsoc.send(new DatagramPacket(b, i, serverAddress, serveurPort));
