@@ -17,7 +17,7 @@ public class server
         byte data[]=new byte[66000];
         DatagramSocket dsoc=new DatagramSocket(port);
         File file = new File(filename);
-        FileOutputStream fop=new FileOutputStream(file);
+        FileOutputStream fop=new FileOutputStream(filename);
         while(true)
         {
             DatagramPacket dp=new DatagramPacket(data, data.length);
@@ -31,7 +31,9 @@ public class server
             System.out.println(value);
             fop.write(String.valueOf(value).getBytes());
             fop.write(dp.getData(), 4, dp.getLength());
-            // System.out.println(dp.getLength());   
+            // System.out.println(dp.getLength());
+            System.out.println(file.length());
+
         }
         
     }

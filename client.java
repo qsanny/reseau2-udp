@@ -11,16 +11,18 @@ public class client
         String file = "tosend.txt";
         int MAX_SIZE = 135000;
 
-        int size = 0;
+        int paquetSize = 65508;
 
         if (args.length == 1){
-            size = Integer.parseInt(args[0]);
+            paquetSize = Integer.parseInt(args[0]);
         }
-        if (args.length == 3){
+        if (args.length == 4){
             // we got the port and the filename
-            serverAddress = InetAddress.getByName(args[1]);
+            serverAddress = InetAddress.getByName(args[0]);
             serveurPort = Integer.parseInt(args[1]);
             file = args[2];
+            paquetSize = Integer.parseInt(args[3]);
+
         }
 
         byte b[]=new byte[MAX_SIZE];
@@ -32,7 +34,7 @@ public class client
         {
             b[i]=(byte)fop.read();
             i++;
-            if (i % size == 0) {
+            if (i % paquetSize == 0) {
                 // String l = "";
                 // l+=nbPacket;
                 ByteBuffer pb = ByteBuffer.allocate(4);
